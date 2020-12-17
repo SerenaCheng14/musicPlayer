@@ -10,7 +10,7 @@ import UIKit
 class SearchViewController: UIViewController {
 
     
-    @IBOutlet weak var searchText: UITextField!
+    @IBOutlet weak var searchText: UITextField?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,14 @@ class SearchViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBSegueAction func deliverSearch(_ coder: NSCoder) -> TableViewController? {
+        if let searchtext = searchText?.text {
+            return TableViewController(coder: coder, searchtext: searchtext)
+        }
+        else{
+            return TableViewController(coder: coder)
+        }
+    }
     
 
     /*

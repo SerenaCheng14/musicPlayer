@@ -10,7 +10,18 @@ import UIKit
 class TableViewController: UITableViewController {
     
     var items = [StoreItem]()
+    let searchtext: String
     
+    init?(coder: NSCoder, searchtext: String) {
+        self.searchtext = searchtext
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+          fatalError()
+    }
+    
+
     func fetchItems(searchItem: String) {
         if let urlStr = "https://itunes.apple.com/search?term=\(searchItem)&media=music".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: urlStr){
             URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -18,12 +29,22 @@ class TableViewController: UITableViewController {
                     let decoder = JSONDecoder()
                     do {
                         let searchResonse = try decoder.decode(SearchResonse.self, from: data)
+                        if searchResonse.resultCount == 0{
+                            print("NO response")
+//                          showAlert
+                            let alert = UIAlertController(title: "Wrong Artist Name", message: "We couldn't find the artist you're looking for. Please go back and try again, thanks.", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "okey-dokey", style: .default) { (UIAlertAction) in
+                            }
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        }
                         self.items = searchResonse.results
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
-                    } catch {
-                        print(error)
+                    }
+                    catch {
+                        print("error",error)
                     }
                 }
             }.resume()
@@ -35,8 +56,8 @@ class TableViewController: UITableViewController {
         
         tableView.rowHeight = 120
         tableView.estimatedRowHeight = 0
-
-        fetchItems(searchItem: "ShawnMendes")
+        
+        fetchItems(searchItem: searchtext)
     }
 
     // MARK: - Table view data source

@@ -13,10 +13,10 @@ struct SearchResonse: Codable{
 }
 
 struct StoreItem: Codable {
-    let artistName: String
+    let artistName: String?
     let collectionCensoredName: String?
     let trackName: String
-    let artistViewUrl: URL
+    let artistViewUrl: URL?
     let collectionViewUrl: URL
     let previewUrl: URL
     let artworkUrl100: URL

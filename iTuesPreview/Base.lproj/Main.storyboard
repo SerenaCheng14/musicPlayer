@@ -36,7 +36,7 @@
                                 <rect key="frame" x="319" y="388" width="52" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="h8z-ib-VxD" kind="show" id="mDR-1b-hv9"/>
+                                    <segue destination="h8z-ib-VxD" kind="show" destinationCreationSelector="deliverSearch:" id="mDR-1b-hv9"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="musicImage" translatesAutoresizingMaskIntoConstraints="NO" id="PlD-3R-CvT">
